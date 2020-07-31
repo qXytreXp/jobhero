@@ -9,7 +9,7 @@ def search_links(job):
     user_agent = 'Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:47.0) Gecko/20100101 Firefox/47.0'
 
     html = requests.get(url, headers={'User-agent':user_agent}).content
-    soup = BeautifulSoup(html, 'lxml')
+    soup = BeautifulSoup(html, 'html.parser')
     link = soup.find_all('a', class_='bloko-link HH-LinkModifier')
 
     arr_links = []
@@ -32,7 +32,7 @@ def requirements(job):
                 user_agent = 'Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:47.0) Gecko/20100101 Firefox/47.0'
 
                 html = requests.get(link, headers={'User-agent':user_agent}).content
-                soup = BeautifulSoup(html, 'lxml')
+                soup = BeautifulSoup(html, 'html.parser')
                 skill = soup.find_all('span', class_='bloko-tag__section bloko-tag__section_text')
 
                 for skills in skill:
@@ -56,7 +56,7 @@ def requirements_skills(job):
         count_skills.append(c[arr_skill])
 
     for count_skill in arr_skills:
-        if c[count_skill] > max(count_skills) // 4:
+        if c[count_skill] > max(count_skills) // c[count_skill]:
             res.append(count_skill)
 
     return set(res)
